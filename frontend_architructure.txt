@@ -1,0 +1,219 @@
+pharmacy-ecommerce/
+├── public/
+│   ├── images/
+│   │   ├── logo.svg
+│   │   ├── hero/
+│   │   ├── products/
+│   │   ├── categories/
+│   │   └── banners/
+│   ├── icons/
+│   │   ├── favicon.ico
+│   │   └── apple-icon.png
+│   └── fonts/
+│
+├── src/
+│   ├── app/
+│   │   ├── layout.tsx                    # Root layout (Server Component)
+│   │   ├── page.tsx                      # Home page (Server Component)
+│   │   ├── loading.tsx                   # Global loading UI
+│   │   ├── error.tsx                     # Global error boundary
+│   │   ├── not-found.tsx                 # 404 page
+│   │   ├── globals.css                   # Tailwind CSS v4 imports
+│   │   ├── StoreProvider.tsx             # Redux Provider ('use client')
+│   │   │
+│   │   ├── (main)/                       # Route group - Public pages
+│   │   │   ├── layout.tsx                # Main layout with Navbar + Footer (Server)
+│   │   │   │
+│   │   │   ├── products/
+│   │   │   │   ├── page.tsx              # Products listing (Server Component)
+│   │   │   │   ├── loading.tsx           # Products loading skeleton
+│   │   │   │   ├── [slug]/
+│   │   │   │   │   ├── page.tsx          # Product detail (Server Component)
+│   │   │   │   │   └── loading.tsx       # Product detail loading
+│   │   │   │   └── _components/          # Private folder (not routable)
+│   │   │   │       ├── ProductCard.tsx   # Client Component ('use client')
+│   │   │   │       ├── ProductGrid.tsx   # Client Component
+│   │   │   │       ├── ProductFilters.tsx# Client Component
+│   │   │   │       ├── ProductDetails.tsx# Client Component
+│   │   │   │       └── RelatedProducts.tsx
+│   │   │   │
+│   │   │   ├── categories/
+│   │   │   │   ├── page.tsx
+│   │   │   │   ├── [slug]/
+│   │   │   │   │   └── page.tsx
+│   │   │   │   └── _components/
+│   │   │   │       ├── CategoryCard.tsx
+│   │   │   │       └── CategoryGrid.tsx
+│   │   │   │
+│   │   │   ├── search/
+│   │   │   │   ├── page.tsx
+│   │   │   │   └── _components/
+│   │   │   │       ├── SearchBar.tsx     # Client Component
+│   │   │   │       └── SearchResults.tsx
+│   │   │   │
+│   │   │   ├── cart/
+│   │   │   │   ├── page.tsx
+│   │   │   │   └── _components/
+│   │   │   │       ├── CartItem.tsx      # Client Component
+│   │   │   │       ├── CartSummary.tsx   # Client Component
+│   │   │   │       └── EmptyCart.tsx
+│   │   │   │
+│   │   │   ├── checkout/
+│   │   │   │   ├── page.tsx
+│   │   │   │   └── _components/
+│   │   │   │       ├── CheckoutForm.tsx  # Client Component
+│   │   │   │       ├── AddressForm.tsx   # Client Component
+│   │   │   │       ├── PaymentForm.tsx   # Client Component
+│   │   │   │       └── OrderSummary.tsx
+│   │   │   │
+│   │   │   ├── about/
+│   │   │   │   └── page.tsx
+│   │   │   │
+│   │   │   ├── contact/
+│   │   │   │   ├── page.tsx
+│   │   │   │   └── _components/
+│   │   │   │       └── ContactForm.tsx   # Client Component
+│   │   │   │
+│   │   │   └── prescription-upload/
+│   │   │       ├── page.tsx
+│   │   │       └── _components/
+│   │   │           ├── PrescriptionUpload.tsx  # Client Component
+│   │   │           └── UploadPreview.tsx
+│   │   │
+│   │   ├── (auth)/                       # Route group - Auth pages
+│   │   │   ├── layout.tsx                # Auth layout (centered)
+│   │   │   ├── login/
+│   │   │   │   └── page.tsx
+│   │   │   ├── register/
+│   │   │   │   └── page.tsx
+│   │   │   ├── forgot-password/
+│   │   │   │   └── page.tsx
+│   │   │   └── _components/
+│   │   │       ├── LoginForm.tsx         # Client Component
+│   │   │       ├── RegisterForm.tsx      # Client Component
+│   │   │       └── AuthCard.tsx
+│   │   │
+│   │   ├── (account)/                    # Route group - User account
+│   │   │   ├── layout.tsx                # Account layout (sidebar)
+│   │   │   ├── profile/
+│   │   │   │   └── page.tsx
+│   │   │   ├── orders/
+│   │   │   │   ├── page.tsx
+│   │   │   │   └── [orderId]/
+│   │   │   │       └── page.tsx
+│   │   │   ├── addresses/
+│   │   │   │   └── page.tsx
+│   │   │   ├── prescriptions/
+│   │   │   │   └── page.tsx
+│   │   │   ├── wishlist/
+│   │   │   │   └── page.tsx
+│   │   │   └── _components/
+│   │   │       ├── AccountSidebar.tsx    # Client Component
+│   │   │       ├── OrderCard.tsx
+│   │   │       ├── AddressCard.tsx
+│   │   │       └── PrescriptionCard.tsx
+│   │   │
+│   │   └── api/                          # API Routes (Route Handlers)
+│   │       └── placeholder/
+│   │           └── route.ts              # GET, POST, etc.
+│   │
+│   ├── lib/                              # Utilities, state, types
+│   │   ├── store.ts                      # Redux store (Next.js 16 compatible)
+│   │   ├── hooks.ts                      # Pre-typed Redux hooks
+│   │   │
+│   │   ├── features/                     # Redux slices
+│   │   │   ├── cart/
+│   │   │   │   ├── cartSlice.ts
+│   │   │   │   └── cartTypes.ts
+│   │   │   ├── products/
+│   │   │   │   ├── productsSlice.ts
+│   │   │   │   └── productsTypes.ts
+│   │   │   ├── wishlist/
+│   │   │   │   ├── wishlistSlice.ts
+│   │   │   │   └── wishlistTypes.ts
+│   │   │   ├── auth/
+│   │   │   │   ├── authSlice.ts
+│   │   │   │   └── authTypes.ts
+│   │   │   ├── ui/
+│   │   │   │   └── uiSlice.ts           # Theme, modals, toasts
+│   │   │   └── filters/
+│   │   │       └── filtersSlice.ts
+│   │   │
+│   │   ├── utils/
+│   │   │   ├── cn.ts                     # clsx + tailwind-merge
+│   │   │   ├── formatters.ts             # Price, date formatters
+│   │   │   ├── validators.ts             # Form validation
+│   │   │   └── storage.ts                # localStorage helpers
+│   │   │
+│   │   ├── constants/
+│   │   │   ├── navigation.ts             # Nav links, routes
+│   │   │   ├── categories.ts             # Product categories
+│   │   │   └── mockData.ts               # Mock products/orders
+│   │   │
+│   │   ├── types/
+│   │   │   ├── product.ts
+│   │   │   ├── cart.ts
+│   │   │   ├── order.ts
+│   │   │   ├── user.ts
+│   │   │   └── index.ts                  # Export all types
+│   │   │
+│   │   └── actions/                      # 🆕 Server Actions (Next.js 16)
+│   │       ├── products.ts               # 'use server' - fetch products
+│   │       ├── cart.ts                   # 'use server' - cart operations
+│   │       └── orders.ts                 # 'use server' - order operations
+│   │
+│   ├── components/                       # Global shared components
+│   │   ├── layout/
+│   │   │   ├── Header.tsx                # Client Component
+│   │   │   ├── Navbar.tsx                # Client Component
+│   │   │   ├── Footer.tsx                # Server Component
+│   │   │   ├── MobileMenu.tsx            # Client Component
+│   │   │   └── Breadcrumb.tsx            # Server Component
+│   │   │
+│   │   ├── ui/                           # Reusable UI components
+│   │   │   ├── button.tsx                # Client Component
+│   │   │   ├── card.tsx                  # Server/Client hybrid
+│   │   │   ├── input.tsx                 # Client Component
+│   │   │   ├── select.tsx                # Client Component
+│   │   │   ├── modal.tsx                 # Client Component
+│   │   │   ├── dropdown.tsx              # Client Component
+│   │   │   ├── toast.tsx                 # Client Component
+│   │   │   ├── badge.tsx                 # Server/Client hybrid
+│   │   │   ├── skeleton.tsx              # Server Component
+│   │   │   ├── tabs.tsx                  # Client Component
+│   │   │   ├── accordion.tsx             # Client Component
+│   │   │   └── pagination.tsx            # Client Component
+│   │   │
+│   │   ├── common/
+│   │   │   ├── Logo.tsx                  # Server Component
+│   │   │   ├── ThemeToggle.tsx           # Client Component
+│   │   │   ├── SearchInput.tsx           # Client Component
+│   │   │   ├── CartIcon.tsx              # Client Component
+│   │   │   ├── WishlistIcon.tsx          # Client Component
+│   │   │   ├── BackButton.tsx            # Client Component
+│   │   │   ├── EmptyState.tsx            # Server Component
+│   │   │   ├── ErrorFallback.tsx         # Client Component
+│   │   │   └── LoadingSpinner.tsx        # Server Component
+│   │   │
+│   │   └── sections/                     # Homepage sections
+│   │       ├── HeroSection.tsx           # Server Component
+│   │       ├── FeaturedProducts.tsx      # Server Component
+│   │       ├── CategoriesSection.tsx     # Server Component
+│   │       ├── OffersSection.tsx         # Server Component
+│   │       ├── TestimonialsSection.tsx   # Server Component
+│   │       └── NewsletterSection.tsx     # Client Component
+│   │
+│   ├── config/
+│   │   ├── site.ts                       # Site metadata, SEO
+│   │   └── theme.ts                      # Theme config
+│   │
+│   └── middleware.ts                     # 🆕 Middleware (auth, redirects)
+│
+├── .env.local                            # Environment variables
+├── .env.example
+├── .eslintrc.json
+├── .gitignore
+├── next.config.ts                        # Next.js 16 config
+├── package.json
+├── tsconfig.json                         # TypeScript config
+└── README.md

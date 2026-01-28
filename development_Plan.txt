@@ -1,0 +1,434 @@
+🎯 COMPLETE FRONTEND DEVELOPMENT PLAN
+Pharmacy E-commerce Website - 10 Section Breakdown
+📋 SECTION 1: Foundation & Infrastructure Setup
+Duration: 2-3 hours
+Priority: Critical - Everything depends on this
+
+Tasks:
+Install Required Dependencies
+
+bash
+npm install @reduxjs/toolkit react-redux clsx tailwind-merge lucide-react
+npm install -D @types/node
+Create Folder Structure
+​
+
+Create all directories: src/lib/, src/components/, src/types/, etc.
+
+Create public/images/ folders (logo, hero, products, categories, banners)
+
+TypeScript Types (src/lib/types/)
+
+product.ts - Product interface
+
+cart.ts - Cart item interface
+
+order.ts - Order interface
+
+user.ts - User interface
+
+index.ts - Export all types
+
+Utility Functions (src/lib/utils/)
+
+cn.ts - className merger (clsx + twMerge)
+
+formatters.ts - Price, date formatters
+
+validators.ts - Form validation helpers
+
+storage.ts - localStorage helpers
+
+Constants (src/lib/constants/)
+
+navigation.ts - Navigation links
+
+categories.ts - Product categories
+
+mockData.ts - Mock products/orders data
+
+Configuration Files (src/config/)
+
+site.ts - Site metadata, SEO
+
+theme.ts - Theme config (if needed beyond CSS)
+
+Deliverables:
+✅ Complete folder structure
+✅ All types defined
+✅ Utility functions ready
+✅ Mock data prepared
+
+📋 SECTION 2: Redux State Management Setup
+Duration: 2-3 hours
+Priority: Critical - Required before any components
+
+Tasks:
+Redux Store Configuration (src/lib/)
+
+store.ts - Configure Redux store with makeStore()
+
+hooks.ts - Pre-typed useAppDispatch, useAppSelector, useAppStore
+
+Redux Slices (src/lib/features/)
+
+cart/cartSlice.ts + cartTypes.ts - Cart functionality (add, remove, update quantity)
+
+wishlist/wishlistSlice.ts + wishlistTypes.ts - Wishlist management
+
+ui/uiSlice.ts - Theme toggle, modals, toast notifications
+
+auth/authSlice.ts + authTypes.ts - User authentication state
+
+filters/filtersSlice.ts - Product filters (price range, categories)
+
+Redux Provider (src/app/)
+
+StoreProvider.tsx - Client component wrapping Redux Provider
+
+Deliverables:
+✅ Redux store configured
+✅ All slices created with actions
+✅ StoreProvider ready
+✅ Typed hooks available
+
+📋 SECTION 3: Base UI Components (Reusable)
+Duration: 3-4 hours
+Priority: High - Used everywhere
+
+Tasks:
+Basic UI Components (src/components/ui/)
+
+button.tsx - Primary, secondary, outline, ghost variants
+
+input.tsx - Text input with focus states
+
+card.tsx - Card component with hover effects
+
+badge.tsx - Status badges (success, error, warning, info)
+
+skeleton.tsx - Loading skeleton component
+
+modal.tsx - Modal/Dialog component
+
+dropdown.tsx - Dropdown menu
+
+select.tsx - Select/dropdown input
+
+tabs.tsx - Tab navigation component
+
+accordion.tsx - Accordion/collapse component
+
+pagination.tsx - Pagination component
+
+Testing
+
+Create a test page to showcase all UI components
+
+Ensure dark mode works correctly
+
+Deliverables:
+✅ 11 reusable UI components
+✅ All components support light/dark mode
+✅ TypeScript props properly typed
+✅ Accessibility features (focus states, keyboard navigation)
+
+📋 SECTION 4: Common Components & Theme System
+Duration: 2-3 hours
+Priority: High - Needed for layout
+
+Tasks:
+Common Components (src/components/common/)
+
+Logo.tsx - Pharmacy logo component
+
+ThemeToggle.tsx - Light/Dark mode toggle button
+
+SearchInput.tsx - Search bar with icon
+
+CartIcon.tsx - Cart icon with item count badge
+
+WishlistIcon.tsx - Wishlist icon with count
+
+BackButton.tsx - Navigation back button
+
+EmptyState.tsx - Empty state illustration
+
+ErrorFallback.tsx - Error boundary UI
+
+LoadingSpinner.tsx - Loading spinner
+
+Theme Provider Setup
+
+Create ThemeProvider.tsx for dark mode context
+
+Integrate with Redux UI slice
+
+Deliverables:
+✅ 9 common components
+✅ Theme toggle functional
+✅ Icons integrated (lucide-react)
+
+📋 SECTION 5: Layout Components (Header, Navbar, Footer)
+Duration: 3-4 hours
+Priority: High - Foundation for all pages
+
+Tasks:
+Layout Components (src/components/layout/)
+
+Header.tsx - Top header with logo, search, cart, wishlist
+
+Navbar.tsx - Navigation menu (categories, links)
+
+MobileMenu.tsx - Responsive mobile menu
+
+Footer.tsx - Footer with links, contact info
+
+Breadcrumb.tsx - Breadcrumb navigation
+
+Root Layout Updates (src/app/)
+
+Update layout.tsx - Wrap with StoreProvider + ThemeProvider
+
+Create loading.tsx - Global loading skeleton
+
+Create error.tsx - Global error boundary
+
+Create not-found.tsx - 404 page
+
+Main Route Group Layout (src/app/(main)/)
+
+Create layout.tsx - Include Navbar + Footer
+
+Deliverables:
+✅ Complete header with search + cart
+✅ Responsive navbar
+✅ Mobile menu functional
+✅ Professional footer
+✅ Breadcrumb component
+✅ Root layout with providers
+
+📋 SECTION 6: Homepage & Sections
+Duration: 4-5 hours
+Priority: Medium-High - First user impression
+
+Tasks:
+Homepage Sections (src/components/sections/)
+
+HeroSection.tsx - Hero banner with CTA
+
+CategoriesSection.tsx - Category cards grid
+
+FeaturedProducts.tsx - Featured products carousel/grid
+
+OffersSection.tsx - Special offers/deals
+
+TestimonialsSection.tsx - Customer testimonials
+
+NewsletterSection.tsx - Newsletter signup
+
+Homepage (src/app/)
+
+Update page.tsx - Compose all sections
+
+Add proper spacing and layout
+
+Deliverables:
+✅ 6 homepage sections
+✅ Complete homepage assembled
+✅ Responsive on all devices
+✅ Smooth animations
+
+📋 SECTION 7: Products Features (Listing & Details)
+Duration: 5-6 hours
+Priority: High - Core e-commerce functionality
+
+Tasks:
+Product Components (src/app/(main)/products/_components/)
+
+ProductCard.tsx - Product card with image, price, add to cart
+
+ProductGrid.tsx - Grid layout for products
+
+ProductFilters.tsx - Sidebar filters (price, category, brand)
+
+ProductDetails.tsx - Product detail section
+
+RelatedProducts.tsx - Related products slider
+
+Product Pages (src/app/(main)/products/)
+
+page.tsx - Products listing page with filters
+
+loading.tsx - Products loading skeleton
+
+[slug]/page.tsx - Product detail page
+
+[slug]/loading.tsx - Product detail loading
+
+Integration
+
+Connect to Redux cart slice (add to cart)
+
+Connect to Redux wishlist slice
+
+Connect to Redux filters slice
+
+Deliverables:
+✅ Product listing page with filters
+✅ Product detail page
+✅ Add to cart functional
+✅ Add to wishlist functional
+✅ Loading states
+
+📋 SECTION 8: Categories & Search Functionality
+Duration: 3-4 hours
+Priority: Medium - Important for navigation
+
+Tasks:
+Category Components (src/app/(main)/categories/_components/)
+
+CategoryCard.tsx - Category card with image
+
+CategoryGrid.tsx - Category grid layout
+
+Category Pages (src/app/(main)/categories/)
+
+page.tsx - All categories page
+
+[slug]/page.tsx - Category products page (reuse ProductGrid)
+
+Search Components (src/app/(main)/search/_components/)
+
+SearchBar.tsx - Enhanced search input
+
+SearchResults.tsx - Search results grid
+
+Search Page (src/app/(main)/search/)
+
+page.tsx - Search results page
+
+Deliverables:
+✅ Categories page
+✅ Category detail pages
+✅ Search functionality
+✅ Search results page
+
+📋 SECTION 9: Cart & Checkout Flow
+Duration: 5-6 hours
+Priority: Critical - Revenue generation
+
+Tasks:
+Cart Components (src/app/(main)/cart/_components/)
+
+CartItem.tsx - Cart item with quantity controls
+
+CartSummary.tsx - Order summary (subtotal, tax, total)
+
+EmptyCart.tsx - Empty cart state
+
+Cart Page (src/app/(main)/cart/)
+
+page.tsx - Shopping cart page
+
+Checkout Components (src/app/(main)/checkout/_components/)
+
+CheckoutForm.tsx - Multi-step checkout
+
+AddressForm.tsx - Shipping address form
+
+PaymentForm.tsx - Payment details form (UI only)
+
+OrderSummary.tsx - Final order summary
+
+Checkout Page (src/app/(main)/checkout/)
+
+page.tsx - Checkout page
+
+Integration
+
+Cart persistence (localStorage)
+
+Form validation
+
+Order creation (mock for now)
+
+Deliverables:
+✅ Fully functional cart
+✅ Cart persistence
+✅ Multi-step checkout
+✅ Form validations
+✅ Order summary
+
+📋 SECTION 10: Authentication & User Account
+Duration: 5-6 hours
+Priority: Medium - Can be done last
+
+Tasks:
+Auth Components (src/app/(auth)/_components/)
+
+AuthCard.tsx - Auth wrapper card
+
+LoginForm.tsx - Login form
+
+RegisterForm.tsx - Registration form
+
+Auth Pages (src/app/(auth)/)
+
+layout.tsx - Centered auth layout
+
+login/page.tsx - Login page
+
+register/page.tsx - Register page
+
+forgot-password/page.tsx - Password reset page
+
+Account Components (src/app/(account)/_components/)
+
+AccountSidebar.tsx - User dashboard sidebar
+
+OrderCard.tsx - Order history card
+
+AddressCard.tsx - Saved address card
+
+PrescriptionCard.tsx - Uploaded prescription card
+
+Account Pages (src/app/(account)/)
+
+layout.tsx - Account layout with sidebar
+
+profile/page.tsx - User profile
+
+orders/page.tsx - Order history
+
+orders/[orderId]/page.tsx - Order details
+
+addresses/page.tsx - Manage addresses
+
+prescriptions/page.tsx - Uploaded prescriptions
+
+wishlist/page.tsx - Wishlist items
+
+Additional Pages (src/app/(main)/)
+
+about/page.tsx - About page
+
+contact/page.tsx - Contact page + ContactForm
+
+prescription-upload/page.tsx - Upload prescription
+
+Integration
+
+Connect to Redux auth slice
+
+Form validations
+
+Mock authentication (no backend)
+
+Deliverables:
+✅ Login/Register pages
+✅ User dashboard
+✅ Order history
+✅ Wishlist page
+✅ Profile management
+✅ About/Contact pages
