@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect } from 'react'
+import { AlertCircle, RotateCw, Home } from 'lucide-react'
 
 export default function Error({
   error,
@@ -19,31 +20,22 @@ export default function Error({
       <div className="text-center max-w-2xl mx-auto">
         {/* Error Icon */}
         <div 
-          className="mb-6 inline-flex items-center justify-center w-24 h-24 rounded-full"
           style={{ 
+            marginBottom: 'var(--space-xl)',
+            display: 'inline-flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            width: '96px',
+            height: '96px',
+            borderRadius: '50%',
             backgroundColor: 'var(--status-error-bg)',
-            marginBottom: 'var(--space-xl)'
           }}
         >
-          <svg 
-            width="48" 
-            height="48" 
-            fill="none" 
-            stroke="var(--status-error)" 
-            strokeWidth="2" 
-            strokeLinecap="round" 
-            strokeLinejoin="round"
-            viewBox="0 0 24 24"
-          >
-            <circle cx="12" cy="12" r="10" />
-            <line x1="12" y1="8" x2="12" y2="12" />
-            <line x1="12" y1="16" x2="12.01" y2="16" />
-          </svg>
+          <AlertCircle size={48} style={{ color: 'var(--status-error)' }} />
         </div>
 
         {/* Title */}
         <h2 
-          className="text-4xl font-bold mb-4"
           style={{ 
             color: 'var(--text-primary)',
             fontSize: 'var(--font-size-4xl)',
@@ -56,12 +48,14 @@ export default function Error({
 
         {/* Description */}
         <p 
-          className="text-lg mb-2 max-w-md mx-auto"
           style={{ 
             color: 'var(--text-secondary)',
             fontSize: 'var(--font-size-lg)',
             lineHeight: 'var(--line-height-relaxed)',
-            marginBottom: 'var(--space-sm)'
+            marginBottom: 'var(--space-sm)',
+            maxWidth: '500px',
+            marginLeft: 'auto',
+            marginRight: 'auto',
           }}
         >
           We encountered an unexpected error while processing your request.
@@ -70,18 +64,20 @@ export default function Error({
         {/* Error Message (Development only) */}
         {process.env.NODE_ENV === 'development' && error.message && (
           <div 
-            className="my-6 p-4 text-left max-w-lg mx-auto"
             style={{
               backgroundColor: 'var(--status-error-bg)',
               border: '1px solid var(--status-error-border)',
               borderRadius: 'var(--radius-md)',
               marginTop: 'var(--space-lg)',
               marginBottom: 'var(--space-lg)',
-              padding: 'var(--space-md)'
+              padding: 'var(--space-md)',
+              maxWidth: '600px',
+              marginLeft: 'auto',
+              marginRight: 'auto',
+              textAlign: 'left',
             }}
           >
             <p 
-              className="text-sm font-medium mb-2"
               style={{ 
                 color: 'var(--status-error)',
                 fontSize: 'var(--font-size-sm)',
@@ -92,11 +88,11 @@ export default function Error({
               Error Details (Development Mode):
             </p>
             <code 
-              className="text-xs break-all"
               style={{ 
                 color: 'var(--text-secondary)',
                 fontSize: 'var(--font-size-xs)',
-                fontFamily: 'var(--font-mono), monospace'
+                fontFamily: 'var(--font-mono), monospace',
+                wordBreak: 'break-all',
               }}
             >
               {error.message}
@@ -105,12 +101,16 @@ export default function Error({
         )}
 
         {/* Actions */}
-        <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mt-8">
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-md)', alignItems: 'center', marginTop: 'var(--space-2xl)' }}>
           {/* Primary Button - Try Again */}
           <button 
             onClick={reset}
-            className="inline-flex items-center justify-center font-medium px-6 py-3 transition-all"
+            className="error-btn primary"
             style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: 'var(--space-sm)',
               backgroundColor: 'var(--primary-600)',
               color: 'var(--text-inverse)',
               borderRadius: 'var(--radius-md)',
@@ -118,38 +118,23 @@ export default function Error({
               fontWeight: 'var(--font-weight-medium)',
               border: 'none',
               cursor: 'pointer',
-              transition: 'var(--transition-fast)'
-            }}
-            onMouseOver={(e) => {
-              e.currentTarget.style.backgroundColor = 'var(--primary-700)'
-            }}
-            onMouseOut={(e) => {
-              e.currentTarget.style.backgroundColor = 'var(--primary-600)'
+              padding: 'var(--space-sm) var(--space-xl)',
+              transition: 'var(--transition-fast)',
             }}
           >
-            <svg 
-              className="mr-2" 
-              width="20" 
-              height="20" 
-              fill="none" 
-              stroke="currentColor" 
-              strokeWidth="2" 
-              strokeLinecap="round" 
-              strokeLinejoin="round"
-              viewBox="0 0 24 24"
-            >
-              <polyline points="23 4 23 10 17 10" />
-              <polyline points="1 20 1 14 7 14" />
-              <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15" />
-            </svg>
+            <RotateCw size={20} />
             Try Again
           </button>
 
           {/* Secondary Button - Go Home */}
           <a
             href="/"
-            className="inline-flex items-center justify-center font-medium px-6 py-3 transition-all"
+            className="error-btn secondary"
             style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: 'var(--space-sm)',
               backgroundColor: 'transparent',
               color: 'var(--text-secondary)',
               border: '1px solid var(--border-default)',
@@ -158,24 +143,17 @@ export default function Error({
               fontWeight: 'var(--font-weight-medium)',
               textDecoration: 'none',
               cursor: 'pointer',
-              transition: 'var(--transition-fast)'
-            }}
-            onMouseOver={(e) => {
-              e.currentTarget.style.backgroundColor = 'var(--background-secondary)'
-              e.currentTarget.style.color = 'var(--text-primary)'
-            }}
-            onMouseOut={(e) => {
-              e.currentTarget.style.backgroundColor = 'transparent'
-              e.currentTarget.style.color = 'var(--text-secondary)'
+              padding: 'var(--space-sm) var(--space-xl)',
+              transition: 'var(--transition-fast)',
             }}
           >
+            <Home size={20} />
             Go to Homepage
           </a>
         </div>
 
         {/* Help Text */}
         <p 
-          className="text-sm mt-8"
           style={{ 
             color: 'var(--text-tertiary)',
             fontSize: 'var(--font-size-sm)',
@@ -195,6 +173,21 @@ export default function Error({
           .
         </p>
       </div>
+
+      {/* CSS for hover effects */}
+      <style jsx>{`
+        .error-btn.primary:hover {
+          background-color: var(--primary-700);
+          transform: translateY(-2px);
+          box-shadow: var(--shadow-md);
+        }
+
+        .error-btn.secondary:hover {
+          background-color: var(--background-secondary);
+          color: var(--text-primary);
+          transform: translateY(-2px);
+        }
+      `}</style>
     </div>
   )
 }

@@ -4,7 +4,7 @@ import * as React from 'react'
 import { motion, HTMLMotionProps } from 'framer-motion'
 import { cn } from '@/lib/utils/cn'
 
-export interface CardProps extends Omit<HTMLMotionProps<'div'>, 'style'> {
+export interface CardProps extends HTMLMotionProps<'div'> {
   variant?: 'default' | 'elevated' | 'outline'
   hoverable?: boolean
   clickable?: boolean
@@ -17,6 +17,7 @@ const Card = React.forwardRef<HTMLDivElement, CardProps>(
       variant = 'default',
       hoverable = false,
       clickable = false,
+      style,
       children,
       ...props
     },
@@ -47,6 +48,7 @@ const Card = React.forwardRef<HTMLDivElement, CardProps>(
     const combinedStyles = {
       ...baseStyles,
       ...variantStyles[variant],
+      ...style,
       cursor: clickable ? 'pointer' : 'default',
     }
 
@@ -78,11 +80,12 @@ Card.displayName = 'Card'
 const CardHeader = React.forwardRef<
   HTMLDivElement,
   React.HTMLAttributes<HTMLDivElement>
->(({ className, ...props }, ref) => (
+>(({ className, style, ...props }, ref) => (
   <div
     ref={ref}
     style={{
       marginBottom: 'var(--space-md)',
+      ...style,
     }}
     className={cn(className)}
     {...props}
@@ -93,7 +96,7 @@ CardHeader.displayName = 'CardHeader'
 const CardTitle = React.forwardRef<
   HTMLHeadingElement,
   React.HTMLAttributes<HTMLHeadingElement>
->(({ className, ...props }, ref) => (
+>(({ className, style, ...props }, ref) => (
   <h3
     ref={ref}
     style={{
@@ -102,6 +105,7 @@ const CardTitle = React.forwardRef<
       fontWeight: 'var(--font-weight-semibold)',
       lineHeight: 'var(--line-height-tight)',
       marginBottom: 'var(--space-xs)',
+      ...style,
     }}
     className={cn(className)}
     {...props}
@@ -112,13 +116,14 @@ CardTitle.displayName = 'CardTitle'
 const CardDescription = React.forwardRef<
   HTMLParagraphElement,
   React.HTMLAttributes<HTMLParagraphElement>
->(({ className, ...props }, ref) => (
+>(({ className, style, ...props }, ref) => (
   <p
     ref={ref}
     style={{
       color: 'var(--text-secondary)',
       fontSize: 'var(--font-size-sm)',
       lineHeight: 'var(--line-height-relaxed)',
+      ...style,
     }}
     className={cn(className)}
     {...props}
@@ -137,7 +142,7 @@ CardContent.displayName = 'CardContent'
 const CardFooter = React.forwardRef<
   HTMLDivElement,
   React.HTMLAttributes<HTMLDivElement>
->(({ className, ...props }, ref) => (
+>(({ className, style, ...props }, ref) => (
   <div
     ref={ref}
     style={{
@@ -147,6 +152,7 @@ const CardFooter = React.forwardRef<
       marginTop: 'var(--space-lg)',
       paddingTop: 'var(--space-md)',
       borderTop: '1px solid var(--border-light)',
+      ...style,
     }}
     className={cn(className)}
     {...props}

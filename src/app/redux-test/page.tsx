@@ -109,7 +109,7 @@ export default function ReduxTestPage() {
           {/* Cart Items */}
           {cart.items.length > 0 && (
             <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-md)' }}>
-              {cart.items.map((item: typeof testProduct) => (
+              {cart.items.map((item) => (
                 <div 
                   key={item.id}
                   className="card card-compact"
@@ -178,7 +178,7 @@ export default function ReduxTestPage() {
           {wishlist.items.length > 0 && (
             <div style={{ marginTop: 'var(--space-md)' }}>
               <h3 style={{ color: 'var(--text-secondary)', marginBottom: 'var(--space-sm)' }}>Wishlist Items:</h3>
-              {wishlist.items.map((item: typeof testProduct) => (
+              {wishlist.items.map((item) => (
                 <div key={item.id} style={{ color: 'var(--text-primary)' }}>• {item.name}</div>
               ))}
             </div>

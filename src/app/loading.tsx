@@ -1,4 +1,5 @@
 'use client'
+
 export default function Loading() {
   return (
     <div 
@@ -7,30 +8,29 @@ export default function Loading() {
     >
       <div className="text-center">
         {/* Animated Spinner */}
-        <div className="relative mb-6">
-          {/* Outer Ring */}
-          <div 
-            className="w-20 h-20 rounded-full border-4 border-opacity-20 absolute"
-            style={{ 
-              borderColor: 'var(--primary-600)',
-              opacity: 0.2
-            }}
-          />
-          
-          {/* Spinning Ring */}
-          <div 
-            className="w-20 h-20 rounded-full border-4 border-t-transparent animate-spin"
-            style={{ 
-              borderColor: 'var(--primary-600)',
-              borderTopColor: 'transparent',
-              animation: 'spin 1s linear infinite'
-            }}
-          />
+        <div className="relative mb-6 inline-block">
+          <svg 
+            className="loading-spinner"
+            width="80" 
+            height="80" 
+            viewBox="0 0 50 50"
+          >
+            <circle
+              cx="25"
+              cy="25"
+              r="20"
+              fill="none"
+              stroke="var(--primary-600)"
+              strokeWidth="4"
+              strokeLinecap="round"
+              strokeDasharray="80, 200"
+              strokeDashoffset="0"
+            />
+          </svg>
         </div>
 
         {/* Loading Text */}
         <h2 
-          className="text-xl font-semibold mb-2"
           style={{ 
             color: 'var(--text-primary)',
             fontSize: 'var(--font-size-xl)',
@@ -42,7 +42,6 @@ export default function Loading() {
         </h2>
 
         <p 
-          className="text-base"
           style={{ 
             color: 'var(--text-tertiary)',
             fontSize: 'var(--font-size-base)'
@@ -51,43 +50,57 @@ export default function Loading() {
           Please wait while we prepare your content
         </p>
 
-        {/* Loading Dots Animation */}
+        {/* Loading Dots */}
         <div 
-          className="flex gap-2 justify-center mt-4"
-          style={{ marginTop: 'var(--space-lg)' }}
+          style={{ 
+            display: 'flex', 
+            gap: 'var(--space-sm)', 
+            justifyContent: 'center',
+            marginTop: 'var(--space-lg)'
+          }}
         >
-          <span 
-            className="w-2 h-2 rounded-full animate-bounce"
-            style={{ 
-              backgroundColor: 'var(--primary-600)',
-              animationDelay: '0ms',
-              animation: 'bounce 1.4s infinite ease-in-out both'
-            }}
-          />
-          <span 
-            className="w-2 h-2 rounded-full animate-bounce"
-            style={{ 
-              backgroundColor: 'var(--primary-600)',
-              animationDelay: '160ms',
-              animation: 'bounce 1.4s infinite ease-in-out both'
-            }}
-          />
-          <span 
-            className="w-2 h-2 rounded-full animate-bounce"
-            style={{ 
-              backgroundColor: 'var(--primary-600)',
-              animationDelay: '320ms',
-              animation: 'bounce 1.4s infinite ease-in-out both'
-            }}
-          />
+          <span className="loading-dot" style={{ animationDelay: '0ms' }} />
+          <span className="loading-dot" style={{ animationDelay: '160ms' }} />
+          <span className="loading-dot" style={{ animationDelay: '320ms' }} />
         </div>
       </div>
 
-      {/* CSS for animations */}
       <style jsx>{`
+        .loading-spinner {
+          animation: spin 1s linear infinite;
+        }
+
+        .loading-spinner circle {
+          animation: dash 1.5s ease-in-out infinite;
+        }
+
+        .loading-dot {
+          width: 8px;
+          height: 8px;
+          border-radius: 50%;
+          background-color: var(--primary-600);
+          display: inline-block;
+          animation: bounce 1.4s infinite ease-in-out both;
+        }
+
         @keyframes spin {
           to {
             transform: rotate(360deg);
+          }
+        }
+
+        @keyframes dash {
+          0% {
+            stroke-dasharray: 1, 200;
+            stroke-dashoffset: 0;
+          }
+          50% {
+            stroke-dasharray: 90, 200;
+            stroke-dashoffset: -35px;
+          }
+          100% {
+            stroke-dasharray: 90, 200;
+            stroke-dashoffset: -125px;
           }
         }
 

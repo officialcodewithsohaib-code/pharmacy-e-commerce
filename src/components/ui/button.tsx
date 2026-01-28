@@ -1,11 +1,10 @@
 'use client'
 
 import * as React from 'react'
-import { motion, HTMLMotionProps } from 'framer-motion'
 import { cn } from '@/lib/utils/cn'
 import { Loader2 } from 'lucide-react'
 
-export interface ButtonProps extends Omit<HTMLMotionProps<'button'>, 'style'> {
+export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: 'primary' | 'secondary' | 'outline' | 'ghost' | 'danger'
   size?: 'sm' | 'md' | 'lg'
   isLoading?: boolean
@@ -26,24 +25,33 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       rightIcon,
       children,
       disabled,
+      style,
+      onMouseEnter,
+      onMouseLeave,
+      onClick,
       ...props
     },
     ref
   ) => {
-    const baseStyles = {
+    const [isHovered, setIsHovered] = React.useState(false)
+    const [isPressed, setIsPressed] = React.useState(false)
+
+    const baseStyles: React.CSSProperties = {
       display: 'inline-flex',
       alignItems: 'center',
       justifyContent: 'center',
-      fontWeight: 'var(--font-weight-medium)',
+      fontWeight: 'var(--font-weight-medium)' as any,
       borderRadius: 'var(--radius-md)',
-      transition: 'var(--transition-fast)',
+      transition: 'all 0.15s ease-in-out',
       cursor: disabled || isLoading ? 'not-allowed' : 'pointer',
       border: '1px solid transparent',
-      whiteSpace: 'nowrap' as const,
+      whiteSpace: 'nowrap',
       gap: 'var(--space-sm)',
+      transform: isPressed ? 'scale(0.98)' : isHovered ? 'scale(1.02)' : 'scale(1)',
+      boxShadow: isHovered && !disabled && !isLoading ? 'var(--shadow-md)' : 'none',
     }
 
-    const variantStyles = {
+    const variantStyles: Record<string, React.CSSProperties> = {
       primary: {
         backgroundColor: 'var(--primary-600)',
         color: 'var(--text-inverse)',
@@ -71,52 +79,80 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       },
     }
 
-    const sizeStyles = {
+    const sizeStyles: Record<string, React.CSSProperties> = {
       sm: {
         padding: 'var(--space-xs) var(--space-md)',
-        fontSize: 'var(--font-size-sm)',
+        fontSize: 'var(--font-size-sm)' as any,
       },
       md: {
         padding: 'var(--space-sm) var(--space-lg)',
-        fontSize: 'var(--font-size-base)',
+        fontSize: 'var(--font-size-base)' as any,
       },
       lg: {
         padding: 'var(--space-md) var(--space-xl)',
-        fontSize: 'var(--font-size-lg)',
+        fontSize: 'var(--font-size-lg)' as any,
       },
     }
 
-    const disabledStyles = {
+    const disabledStyles: React.CSSProperties = {
       opacity: disabled || isLoading ? 0.5 : 1,
     }
 
-    const combinedStyles = {
+    const combinedStyles: React.CSSProperties = {
       ...baseStyles,
       ...variantStyles[variant],
       ...sizeStyles[size],
       ...disabledStyles,
+      ...style,
+    }
+
+    const iconSize = size === 'sm' ? 14 : size === 'lg' ? 20 : 16
+
+    const handleMouseEnter = (e: React.MouseEvent<HTMLButtonElement>) => {
+      if (!disabled && !isLoading) {
+        setIsHovered(true)
+        onMouseEnter?.(e)
+      }
+    }
+
+    const handleMouseLeave = (e: React.MouseEvent<HTMLButtonElement>) => {
+      if (!disabled && !isLoading) {
+        setIsHovered(false)
+        setIsPressed(false)
+        onMouseLeave?.(e)
+      }
+    }
+
+    const handleMouseDown = () => {
+      if (!disabled && !isLoading) {
+        setIsPressed(true)
+      }
+    }
+
+    const handleMouseUp = () => {
+      if (!disabled && !isLoading) {
+        setIsPressed(false)
+      }
     }
 
     return (
-      <motion.button
+      <button
         ref={ref}
         style={combinedStyles}
         className={cn(className)}
         disabled={disabled || isLoading}
-        whileHover={
-          !disabled && !isLoading
-            ? { scale: 1.02, boxShadow: 'var(--shadow-md)' }
-            : {}
-        }
-        whileTap={!disabled && !isLoading ? { scale: 0.98 } : {}}
-        transition={{ duration: 0.15 }}
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
+        onMouseDown={handleMouseDown}
+        onMouseUp={handleMouseUp}
+        onClick={onClick}
         {...props}
       >
-        {isLoading && <Loader2 className="animate-spin" size={size === 'sm' ? 14 : size === 'lg' ? 20 : 16} />}
+        {isLoading && <Loader2 className="animate-spin" size={iconSize} />}
         {!isLoading && leftIcon}
         {isLoading ? loadingText || children : children}
         {!isLoading && rightIcon}
-      </motion.button>
+      </button>
     )
   }
 )

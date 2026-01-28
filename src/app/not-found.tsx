@@ -1,4 +1,7 @@
+'use client'
+
 import Link from 'next/link'
+import { Home, ArrowLeft } from 'lucide-react'
 
 export default function NotFound() {
   return (
@@ -7,10 +10,12 @@ export default function NotFound() {
         {/* 404 Number */}
         <div className="mb-8">
           <h1 
-            className="text-9xl font-bold tracking-tight"
             style={{ 
               color: 'var(--primary-600)',
-              lineHeight: 'var(--line-height-none)'
+              fontSize: '9rem',
+              fontWeight: 'var(--font-weight-bold)',
+              lineHeight: 'var(--line-height-none)',
+              marginBottom: 0,
             }}
           >
             404
@@ -19,7 +24,6 @@ export default function NotFound() {
 
         {/* Title */}
         <h2 
-          className="text-4xl font-bold mb-4"
           style={{ 
             color: 'var(--text-primary)',
             fontSize: 'var(--font-size-4xl)',
@@ -32,12 +36,14 @@ export default function NotFound() {
 
         {/* Description */}
         <p 
-          className="text-lg mb-8 max-w-md mx-auto"
           style={{ 
             color: 'var(--text-secondary)',
             fontSize: 'var(--font-size-lg)',
             lineHeight: 'var(--line-height-relaxed)',
-            marginBottom: 'var(--space-2xl)'
+            marginBottom: 'var(--space-2xl)',
+            maxWidth: '500px',
+            marginLeft: 'auto',
+            marginRight: 'auto',
           }}
         >
           Sorry, we couldn&apos;t find the page you&apos;re looking for. 
@@ -45,49 +51,40 @@ export default function NotFound() {
         </p>
 
         {/* Actions */}
-        <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-md)', alignItems: 'center' }}>
           {/* Primary Button - Go Home */}
           <Link 
             href="/"
-            className="inline-flex items-center justify-center font-medium px-6 py-3 transition-all"
+            className="not-found-btn primary"
             style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: 'var(--space-sm)',
               backgroundColor: 'var(--primary-600)',
               color: 'var(--text-inverse)',
               borderRadius: 'var(--radius-md)',
               fontSize: 'var(--font-size-base)',
               fontWeight: 'var(--font-weight-medium)',
               textDecoration: 'none',
-              transition: 'var(--transition-fast)'
-            }}
-            onMouseOver={(e) => {
-              e.currentTarget.style.backgroundColor = 'var(--primary-700)'
-            }}
-            onMouseOut={(e) => {
-              e.currentTarget.style.backgroundColor = 'var(--primary-600)'
+              padding: 'var(--space-sm) var(--space-xl)',
+              transition: 'var(--transition-fast)',
+              border: '1px solid var(--primary-600)',
             }}
           >
-            <svg 
-              className="mr-2" 
-              width="20" 
-              height="20" 
-              fill="none" 
-              stroke="currentColor" 
-              strokeWidth="2" 
-              strokeLinecap="round" 
-              strokeLinejoin="round"
-              viewBox="0 0 24 24"
-            >
-              <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
-              <polyline points="9 22 9 12 15 12 15 22" />
-            </svg>
+            <Home size={20} />
             Go to Homepage
           </Link>
 
           {/* Secondary Button - Go Back */}
           <button 
             onClick={() => window.history.back()}
-            className="inline-flex items-center justify-center font-medium px-6 py-3 transition-all"
+            className="not-found-btn secondary"
             style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: 'var(--space-sm)',
               backgroundColor: 'transparent',
               color: 'var(--primary-600)',
               border: '1px solid var(--border-default)',
@@ -95,38 +92,17 @@ export default function NotFound() {
               fontSize: 'var(--font-size-base)',
               fontWeight: 'var(--font-weight-medium)',
               cursor: 'pointer',
-              transition: 'var(--transition-fast)'
-            }}
-            onMouseOver={(e) => {
-              e.currentTarget.style.backgroundColor = 'var(--primary-50)'
-              e.currentTarget.style.borderColor = 'var(--primary-600)'
-            }}
-            onMouseOut={(e) => {
-              e.currentTarget.style.backgroundColor = 'transparent'
-              e.currentTarget.style.borderColor = 'var(--border-default)'
+              padding: 'var(--space-sm) var(--space-xl)',
+              transition: 'var(--transition-fast)',
             }}
           >
-            <svg 
-              className="mr-2" 
-              width="20" 
-              height="20" 
-              fill="none" 
-              stroke="currentColor" 
-              strokeWidth="2" 
-              strokeLinecap="round" 
-              strokeLinejoin="round"
-              viewBox="0 0 24 24"
-            >
-              <line x1="19" y1="12" x2="5" y2="12" />
-              <polyline points="12 19 5 12 12 5" />
-            </svg>
+            <ArrowLeft size={20} />
             Go Back
           </button>
         </div>
 
         {/* Helpful Links */}
         <div 
-          className="mt-12 pt-8"
           style={{ 
             borderTop: '1px solid var(--divider)',
             marginTop: 'var(--space-3xl)',
@@ -134,7 +110,6 @@ export default function NotFound() {
           }}
         >
           <p 
-            className="text-sm mb-4"
             style={{ 
               color: 'var(--text-tertiary)',
               fontSize: 'var(--font-size-sm)',
@@ -144,48 +119,69 @@ export default function NotFound() {
             Here are some helpful links instead:
           </p>
           
-          <div className="flex flex-wrap gap-4 justify-center">
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: 'var(--space-md)', justifyContent: 'center', alignItems: 'center' }}>
             <Link 
               href="/products" 
-              className="text-sm hover:underline"
               style={{ 
                 color: 'var(--text-link)',
                 fontSize: 'var(--font-size-sm)',
                 textDecoration: 'none',
-                transition: 'var(--transition-fast)'
+                transition: 'var(--transition-fast)',
               }}
+              className="not-found-link"
             >
               Browse Products
             </Link>
             <span style={{ color: 'var(--text-muted)' }}>•</span>
             <Link 
               href="/categories" 
-              className="text-sm hover:underline"
               style={{ 
                 color: 'var(--text-link)',
                 fontSize: 'var(--font-size-sm)',
                 textDecoration: 'none',
-                transition: 'var(--transition-fast)'
+                transition: 'var(--transition-fast)',
               }}
+              className="not-found-link"
             >
               Categories
             </Link>
             <span style={{ color: 'var(--text-muted)' }}>•</span>
             <Link 
               href="/contact" 
-              className="text-sm hover:underline"
               style={{ 
                 color: 'var(--text-link)',
                 fontSize: 'var(--font-size-sm)',
                 textDecoration: 'none',
-                transition: 'var(--transition-fast)'
+                transition: 'var(--transition-fast)',
               }}
+              className="not-found-link"
             >
               Contact Us
             </Link>
           </div>
         </div>
       </div>
+
+      {/* CSS for hover effects */}
+      <style jsx>{`
+        .not-found-btn.primary:hover {
+          background-color: var(--primary-700);
+          border-color: var(--primary-700);
+          transform: translateY(-2px);
+          box-shadow: var(--shadow-md);
+        }
+
+        .not-found-btn.secondary:hover {
+          background-color: var(--primary-50);
+          border-color: var(--primary-600);
+          transform: translateY(-2px);
+        }
+
+        .not-found-link:hover {
+          color: var(--text-link-hover);
+          text-decoration: underline;
+        }
+      `}</style>
     </div>
   )
 }

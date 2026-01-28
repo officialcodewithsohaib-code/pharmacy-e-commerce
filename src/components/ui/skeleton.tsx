@@ -1,7 +1,6 @@
 'use client'
 
 import * as React from 'react'
-import { motion } from 'framer-motion'
 import { cn } from '@/lib/utils/cn'
 
 export interface SkeletonProps extends React.HTMLAttributes<HTMLDivElement> {
@@ -19,6 +18,7 @@ const Skeleton = React.forwardRef<HTMLDivElement, SkeletonProps>(
       width,
       height,
       animation = 'pulse',
+      style,
       ...props
     },
     ref
@@ -34,38 +34,19 @@ const Skeleton = React.forwardRef<HTMLDivElement, SkeletonProps>(
           ? 'var(--radius-sm)'
           : 'var(--radius-md)',
       display: 'inline-block',
+      animation: animation === 'pulse' ? 'skeletonPulse 1.5s ease-in-out infinite' : 'skeletonWave 1.5s linear infinite',
+      backgroundSize: animation === 'wave' ? '200% 100%' : 'auto',
+      backgroundImage: animation === 'wave' 
+        ? 'linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent)'
+        : 'none',
+      ...style,
     }
 
     return (
-      <motion.div
+      <div
         ref={ref}
         style={baseStyles}
         className={cn(className)}
-        animate={
-          animation === 'pulse'
-            ? {
-                opacity: [0.5, 1, 0.5],
-              }
-            : {
-                backgroundPosition: ['200% 0', '-200% 0'],
-                backgroundImage:
-                  'linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent)',
-                backgroundSize: '200% 100%',
-              }
-        }
-        transition={
-          animation === 'pulse'
-            ? {
-                duration: 1.5,
-                repeat: Infinity,
-                ease: 'easeInOut',
-              }
-            : {
-                duration: 1.5,
-                repeat: Infinity,
-                ease: 'linear',
-              }
-        }
         {...props}
       />
     )

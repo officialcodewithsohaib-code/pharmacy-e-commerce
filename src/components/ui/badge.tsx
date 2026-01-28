@@ -1,10 +1,9 @@
 'use client'
 
 import * as React from 'react'
-import { motion, HTMLMotionProps } from 'framer-motion'
 import { cn } from '@/lib/utils/cn'
 
-export interface BadgeProps extends Omit<HTMLMotionProps<'span'>, 'style'> {
+export interface BadgeProps extends React.HTMLAttributes<HTMLSpanElement> {
   variant?: 'default' | 'success' | 'error' | 'warning' | 'info' | 'outline'
   size?: 'sm' | 'md' | 'lg'
   dot?: boolean
@@ -18,22 +17,24 @@ const Badge = React.forwardRef<HTMLSpanElement, BadgeProps>(
       size = 'md',
       dot = false,
       children,
+      style,
       ...props
     },
     ref
   ) => {
-    const baseStyles = {
+    const baseStyles: React.CSSProperties = {
       display: 'inline-flex',
       alignItems: 'center',
       justifyContent: 'center',
-      fontWeight: 'var(--font-weight-medium)',
+      fontWeight: 'var(--font-weight-medium)' as any,
       borderRadius: 'var(--radius-full)',
-      whiteSpace: 'nowrap' as const,
-      transition: 'var(--transition-fast)',
+      whiteSpace: 'nowrap',
+      transition: 'var(--transition-fast)' as any,
       gap: dot ? 'var(--space-xs)' : '0',
+      animation: 'fadeIn 0.2s ease-in-out',
     }
 
-    const variantStyles = {
+    const variantStyles: Record<string, React.CSSProperties> = {
       default: {
         backgroundColor: 'var(--badge-bg)',
         color: 'var(--badge-text)',
@@ -61,28 +62,29 @@ const Badge = React.forwardRef<HTMLSpanElement, BadgeProps>(
       },
     }
 
-    const sizeStyles = {
+    const sizeStyles: Record<string, React.CSSProperties> = {
       sm: {
-        fontSize: 'var(--font-size-xs)',
+        fontSize: 'var(--font-size-xs)' as any,
         padding: 'var(--space-xs) var(--space-sm)',
       },
       md: {
-        fontSize: 'var(--font-size-sm)',
+        fontSize: 'var(--font-size-sm)' as any,
         padding: 'calc(var(--space-xs) + 1px) var(--space-md)',
       },
       lg: {
-        fontSize: 'var(--font-size-base)',
+        fontSize: 'var(--font-size-base)' as any,
         padding: 'var(--space-sm) var(--space-lg)',
       },
     }
 
-    const combinedStyles = {
+    const combinedStyles: React.CSSProperties = {
       ...baseStyles,
       ...variantStyles[variant],
       ...sizeStyles[size],
+      ...style,
     }
 
-    const dotColor = {
+    const dotColor: Record<string, string> = {
       default: 'var(--badge-text)',
       success: 'var(--status-success)',
       error: 'var(--status-error)',
@@ -91,28 +93,27 @@ const Badge = React.forwardRef<HTMLSpanElement, BadgeProps>(
       outline: 'var(--text-primary)',
     }
 
+    const dotSize = size === 'sm' ? '6px' : size === 'lg' ? '10px' : '8px'
+
     return (
-      <motion.span
+      <span
         ref={ref}
         style={combinedStyles}
         className={cn(className)}
-        initial={{ opacity: 0, scale: 0.9 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.2 }}
         {...props}
       >
         {dot && (
           <span
             style={{
-              width: size === 'sm' ? '6px' : size === 'lg' ? '10px' : '8px',
-              height: size === 'sm' ? '6px' : size === 'lg' ? '10px' : '8px',
+              width: dotSize,
+              height: dotSize,
               borderRadius: '50%',
               backgroundColor: dotColor[variant],
             }}
           />
         )}
         {children}
-      </motion.span>
+      </span>
     )
   }
 )
